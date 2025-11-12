@@ -1,21 +1,24 @@
 import { createBrowserRouter } from "react-router";
-import Login from "../pages/Login";
 import Home from "../pages/Home";
-import Signin from "../pages/Signin"
+import ShowItems from "../pages/ShowItems";
+import AdminDashboard from "../pages/AdiminDashboard";
+
 
 const router = createBrowserRouter([
    {
       path: "/",
       Component: Home,
+      children: [
+         {
+            path: "/",
+            Component: ShowItems
+         },
+         {
+            path: '/admin/dashboard',
+            Component: AdminDashboard
+         }
+      ]
    },
-   {
-      path: "login",
-      Component: Login,
-   },
-   {
-      path: "signin",
-      Component: Signin
-   }
 ]);
 
 export default router;

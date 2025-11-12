@@ -10,7 +10,7 @@ import {
 
 export default function MyPagination() {
    return (
-      <div className="sticky bottom-0 shadow-xl">
+      <div className="sticky bottom-0 shadow-xl w-full bg-white">
          <Pagination>
             <PaginationContent className=" bg-white rounded-full p-3">
                <PaginationItem>

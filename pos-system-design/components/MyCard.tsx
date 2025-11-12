@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "../src/components/ui/button";
 import {
    Card,
    CardAction,
@@ -7,15 +7,15 @@ import {
    CardFooter,
    CardHeader,
    CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+} from "../src/components/ui/card";
+import { Input } from "../src/components/ui/input";
 import { MessageCircleMore } from "lucide-react";
 
 export default function MyCard() {
    return (
       <Card
-         className="w-50 relative transition-transform duration-300 ease-in-out 
-                  hover:scale-104 hover:brightness-80"
+         className="w-50 relative transition-transform duration-300 ease-in-out h-fit
+                  hover:scale-104 hover:brightness-90"
       >
          <CardHeader className="bg-gray-200 p-2">
             <img

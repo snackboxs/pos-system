@@ -1,7 +1,12 @@
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { SlidersHorizontal, Search, Coffee, Apple, Book } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "../src/components/ui/sidebar";
+import { SlidersHorizontal, Search } from "lucide-react";
+import { Input } from "../src/components/ui/input";
+import { Button } from "../src/components/ui/button";
+import {
+   DropdownMenu,
+   DropdownMenuTrigger,
+} from "../src/components/ui/dropdown-menu";
+import { ItemSelectionPageDropDown } from "../components/sort/ItemSelectionPageDropDown";
 
 export default function Topbar() {
    return (
@@ -14,9 +19,14 @@ export default function Topbar() {
                className="rounded-full bg-white h-10 pl-10 focus-visible:border-green-500 focus-visible:ring-green-300/50"
             />
          </div>
-         <Button className="mx-2 bg-white hover:bg-secondary active:bg-green-300">
-            <SlidersHorizontal className="text-black size-5" />
-         </Button>
+         <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+               <Button className="mx-2 bg-white hover:bg-secondary active:bg-green-300">
+                  <SlidersHorizontal className="text-black size-5" />
+               </Button>
+            </DropdownMenuTrigger>
+            <ItemSelectionPageDropDown />
+         </DropdownMenu>
       </div>
    );
 }
