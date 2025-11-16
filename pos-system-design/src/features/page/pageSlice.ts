@@ -44,8 +44,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store.ts";
 
-// Cookie များနှင့် ပတ်သက်သော အပိုင်းများကို ဖယ်ရှားလိုက်ပြီ
-
 const DEFAULT_PAGE = "Home"; 
 
 interface PageState {
@@ -53,7 +51,6 @@ interface PageState {
 }
 
 const initialState: PageState = {
-  // ၁။ Cookie မှ ဖတ်စရာ မလိုတော့ဘဲ DEFAULT_PAGE ကို တိုက်ရိုက်ယူခြင်း
   currentPage: DEFAULT_PAGE, 
 };
 

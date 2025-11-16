@@ -40,7 +40,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const menuItems = [
    { title: "Home", url: "/", icon: Home },
-   { title: "Inbox", url: "/admin/dashboard", icon: Inbox },
+   { title: "Stock", url: "/admin/dashboard", icon: Inbox },
    // { title: "Settings", url: "#", icon: Settings },
 ];
 

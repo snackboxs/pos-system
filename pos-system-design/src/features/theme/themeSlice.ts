@@ -24,6 +24,8 @@ export const themeSlice = createSlice({
    initialState,
    reducers: {
       setTheme: (state, action: PayloadAction<Theme>) => {
+         console.log("themi");
+         
          state.currentTheme = action.payload;
          localStorage.setItem("pos-system-theme", action.payload);
       },

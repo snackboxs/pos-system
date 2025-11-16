@@ -4,13 +4,16 @@ import { SidebarProvider } from "../src/components/ui/sidebar";
 import Topbar from "../components/Topbar";
 import type React from "react";
 import { selectCurrentPage } from "../src/features/page/pageSlice";
+import { auth } from "@/features/auth/authCheck";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 export default function Dashboard({ children }: React.ComponentProps<"div">) {
    // const currentPage = useSelector(selectCurrentPage);
-   const location = useLocation();
-   const isHomePage =   location.pathname === "/";
+   // const location = useLocation();
+   // const isHomePage =   location.pathname === "/";
+   // const auth = false;
+   const isAuth = useSelector(auth);
 
    return (
       <SidebarProvider className="bg-gray-100">
@@ -21,7 +24,7 @@ export default function Dashboard({ children }: React.ComponentProps<"div">) {
                {children}
             </div>
          </div>
-         {isHomePage && <MenuCard />}
+         {isAuth && <MenuCard />}
       </SidebarProvider>
    );
 }
