@@ -18,7 +18,7 @@
 //    )
 // }
 
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectAllItems } from "../src/features/itemSelected/itemSelectedSlice";
 import MyCard from "./MyCard";
@@ -32,7 +32,7 @@ export default function CardContainer() {
             <MyCard
                key={item.id}
                itemId={item.id}
-               itemData={item} 
+               itemData={item}
             />
          ))}
       </div>

@@ -53,3 +53,12 @@
    border-top: 1px dashed #333;
    margin: 5px 0;
 }
+
+.moreicon {
+   white-space: nowrap; /* one line */
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* 2 လိုင်းပဲ ပြဖို့ ကန့်သတ်ထားခြင်း */
+   -webkit-box-orient: vertical;
+}

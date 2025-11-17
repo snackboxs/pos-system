@@ -89,6 +89,7 @@ import {
 } from "../src/features/itemSelected/itemSelectedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../src/hooks";
+import { useEffect, useRef, useState } from "react";
 
 interface CartItem {
    id: string;
@@ -106,10 +107,24 @@ export default function MyCard({
    itemData: CartItem;
 }) {
    const dispatch = useAppDispatch();
-
+   const [isExpanded, setIsExpanded] = useState(false);
+   const [isTextOverflowing, setIsTextOverflowing] = useState(false);
    const count = useAppSelector((state) => selectItemCount(state, itemId));
-
+   const descriptionRef = useRef<HTMLDivElement>(null);
    const { name, price, description } = itemData;
+
+   const toggleExpand = () => {
+      setIsExpanded((prev) => !prev);
+   };
+
+   useEffect(() => {
+      if (descriptionRef.current) {
+         const element = descriptionRef.current; 
+         setIsTextOverflowing(element.scrollWidth > element.clientWidth); 
+      }
+   }, [description]); 
+
+   console.log(isTextOverflowing);
 
    return (
       <Card
@@ -126,7 +141,25 @@ export default function MyCard({
          </CardHeader>
          <CardContent>
             <CardTitle>{name}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+            <CardDescription
+               ref={descriptionRef as React.RefObject<HTMLParagraphElement>} // 💡 Update Ref Type Here
+               className={isExpanded ? "whitespace-normal" : "moreicon"}
+            >
+               {description}
+            </CardDescription>
+
+            {/* Conditional Button Rendering is correct */}
+            <button
+               onClick={toggleExpand}
+               className="text-blue-500 hover:text-blue-700 text-sm mt-1"
+            >
+               {/* {isExpanded ? "Read Less" : "Read More"} */}
+               {isTextOverflowing
+                  ? isExpanded
+                     ? "Read Less"
+                     : "Read More"
+                  : ""}
+            </button>
             <div className="flex justify-between mt-2">
                <span>${price}</span>
             </div>
