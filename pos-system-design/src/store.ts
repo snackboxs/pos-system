@@ -2,16 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { themeSlice } from "./features/theme/themeSlice";
 import pageReducer from "./features/page/pageSlice";
 import { authCheck } from "./features/auth/authCheck";
-// import { itemSelectedSlice } from "./features/itemSelected/itemSelectedSlice";
 import itemSelectedReducer from "./features/itemSelected/itemSelectedSlice";
+import { dataSlice } from "./features/data/dataSlice";
 
 export const store = configureStore({
    reducer: {
       theme: themeSlice.reducer,
       activePage: pageReducer,
       auth: authCheck.reducer,
-      // itemSelected: itemSelectedSlice.reducer,
       itemSelected: itemSelectedReducer,
+      data: dataSlice.reducer,
    },
 });
 

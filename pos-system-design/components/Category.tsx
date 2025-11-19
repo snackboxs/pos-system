@@ -9,15 +9,6 @@ interface BoxProps {
 }
 
 function Box({ className, children, isActive, onClick }: BoxProps) {
-   // return (
-   //    <div
-   //       className={`cursor-pointer min-w-25 h-30 bg-white rounded-xl p-3 hover:bg-gray-300 active:bg-gray-200 ${className}`}
-   //    >
-   //       {children}
-   //       <h1 className="mt-5">All</h1>
-   //       <small>26 items</small>
-   //    </div>
-   // );
    const baseClasses = "cursor-pointer min-w-25 h-30 rounded-xl p-3 shadow-md";
    const activeClasses = "bg-green-200 shadow-lg hover:bg-green-300"; // active ဖြစ်ရင် ပေးမယ့် style
    const inactiveClasses =
@@ -31,8 +22,6 @@ function Box({ className, children, isActive, onClick }: BoxProps) {
          onClick={onClick}
       >
          {children}
-         {/* <h1 className="mt-5">All</h1>
-         <small>26 items</small> */}
       </div>
    );
 }

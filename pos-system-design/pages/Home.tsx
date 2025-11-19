@@ -1,14 +1,18 @@
 import { Outlet } from "react-router";
 
-import Dashboard from "./Dashboard"
+import Dashboard from "./Dashboard";
+// import {useDashboardContext} from "./DashboardProvider"
+import DashboardProvider from "./DashboardProvider";
 export default function Home() {
    return (
-      <div>
+      <DashboardProvider>
          <div>
-            <Dashboard>
-               <Outlet />
-            </Dashboard>
+            <div>
+               <Dashboard>
+                  <Outlet />
+               </Dashboard>
+            </div>
          </div>
-      </div>
+      </DashboardProvider>
    );
 }

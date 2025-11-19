@@ -9,10 +9,6 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 export default function Dashboard({ children }: React.ComponentProps<"div">) {
-   // const currentPage = useSelector(selectCurrentPage);
-   // const location = useLocation();
-   // const isHomePage =   location.pathname === "/";
-   // const auth = false;
    const isAuth = useSelector(auth);
 
    return (
@@ -24,7 +20,7 @@ export default function Dashboard({ children }: React.ComponentProps<"div">) {
                {children}
             </div>
          </div>
-         {isAuth && <MenuCard />}
+         {!isAuth && <MenuCard />}
       </SidebarProvider>
    );
 }

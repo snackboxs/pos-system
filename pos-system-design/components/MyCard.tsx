@@ -1,79 +1,5 @@
-// import { Button } from "../src/components/ui/button";
-// import {
-//    Card,
-//    CardAction,
-//    CardContent,
-//    CardDescription,
-//    CardFooter,
-//    CardHeader,
-//    CardTitle,
-// } from "../src/components/ui/card";
-// import { Input } from "../src/components/ui/input";
-// import { MessageCircleMore, Edit, Plus, Minus } from "lucide-react";
-// import type { RootState } from "../src/store";
-// import {
-//    currentItem,
-//    addItem,
-//    minusItem,
-// } from "../src/features/itemSelected/itemSelectedSlice";
-// import { useDispatch, useSelector } from "react-redux";
-
-// export default function MyCard() {
-//    const dispatch = useDispatch();
-//    const count = useSelector(currentItem);
-//    return (
-//       <Card
-//          className="w-50 relative transition-transform duration-300 ease-in-out h-fit
-//                   hover:scale-104 hover:brightness-90"
-//       >
-//          <CardHeader className="bg-gray-200 p-2">
-//             <img
-//                style={{ height: 150 }}
-//                className="m-auto"
-//                src="https://i.pinimg.com/1200x/fd/13/9a/fd139a33e90d34e523a8e5769edf18e0.jpg"
-//                alt="food img"
-//             />
-//          </CardHeader>
-//          <CardContent>
-//             <CardDescription>
-//                Lorem ipsum dolor sit amet consectetur
-//             </CardDescription>
-//             <div className="flex justify-between">
-//                <span>$22</span>
-//                <CardDescription>20</CardDescription>
-//             </div>
-//          </CardContent>
-//          <CardFooter className="w-full">
-//             {/* <Button className="w-full rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500">
-//                Edit
-//             </Button> */}
-//             <div className="flex w-full justify-between items-center">
-//                <Button
-//                   className=" rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
-//                   onClick={() => {
-//                      dispatch(minusItem());
-//                   }}
-//                >
-//                   <Minus />
-//                </Button>
-//                <span>{count}</span>
-//                <Button
-//                   className="rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
-//                   onClick={() => {
-//                      dispatch(addItem());
-//                   }}
-//                >
-//                   <Plus />
-//                </Button>
-//             </div>
-//          </CardFooter>
-//       </Card>
-//    );
-// }
-
-// // 2062005kkzino
-
-import { Button } from "../src/components/ui/button"; // Assuming this path is correct
+import { useState, useRef, useEffect } from "react";
+import { Button } from "../src/components/ui/button";
 import {
    Card,
    CardContent,
@@ -81,61 +7,51 @@ import {
    CardFooter,
    CardHeader,
    CardTitle,
-} from "../src/components/ui/card"; // Assuming this path is correct
+} from "../src/components/ui/card";
 import { Plus, Minus } from "lucide-react";
+import type { Data } from "@/features/data/dataSlice";
 import {
-   selectItemCount,
-   changeItemCount,
-} from "../src/features/itemSelected/itemSelectedSlice";
+   addProduct,
+   cancleProduct,
+   itemSelected,
+} from "@/features/itemSelected/itemSelectedSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useAppDispatch, useAppSelector } from "../src/hooks";
-import { useEffect, useRef, useState } from "react";
+import { auth } from "@/features/auth/authCheck";
 
-interface CartItem {
-   id: string;
-   name: string;
-   price: number;
-   description: string;
-   count: number;
+interface MyCardProps {
+   data: Data;
 }
 
-export default function MyCard({
-   itemId,
-   itemData,
-}: {
-   itemId: string;
-   itemData: CartItem;
-}) {
-   const dispatch = useAppDispatch();
+export default function MyCard({ data }: MyCardProps) {
+   const [count, setCount] = useState(0);
    const [isExpanded, setIsExpanded] = useState(false);
    const [isTextOverflowing, setIsTextOverflowing] = useState(false);
-   const count = useAppSelector((state) => selectItemCount(state, itemId));
+   const { imgurl, name, price, description, quantity } = data;
    const descriptionRef = useRef<HTMLDivElement>(null);
-   const { name, price, description } = itemData;
-
    const toggleExpand = () => {
       setIsExpanded((prev) => !prev);
    };
+   const dispatch = useDispatch();
+   const selectedItems = useSelector(itemSelected);
+   const isAuth = useSelector(auth);
 
    useEffect(() => {
       if (descriptionRef.current) {
-         const element = descriptionRef.current; 
-         setIsTextOverflowing(element.scrollWidth > element.clientWidth); 
+         const element = descriptionRef.current;
+         setIsTextOverflowing(element.scrollWidth > element.clientWidth);
       }
-   }, [description]); 
-
-   console.log(isTextOverflowing);
+   }, [description]);
 
    return (
       <Card
          className="w-50 relative transition-transform duration-300 ease-in-out h-fit
                   hover:scale-104 hover:brightness-90"
       >
-         <CardHeader className="bg-gray-200 p-2">
+         <CardHeader className="p-1">
             <img
-               style={{ height: 150 }}
-               className="m-auto"
-               src="https://i.pinimg.com/1200x/fd/13/9a/fd139a33e90d34e523a8e5769edf18e0.jpg"
+               // style={{ height: 150 }}
+               className="m-auto h-50 bg-sidebar rounded-t-xl"
+               src={imgurl}
                alt="food img"
             />
          </CardHeader>
@@ -162,34 +78,55 @@ export default function MyCard({
             </button>
             <div className="flex justify-between mt-2">
                <span>${price}</span>
+               <CardDescription>{quantity}</CardDescription>
             </div>
          </CardContent>
          <CardFooter className="w-full">
-            <div className="flex w-full justify-between items-center">
-               {/* MINUS BUTTON */}
-               <Button
-                  className=" rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
-                  onClick={() => {
-                     dispatch(changeItemCount({ id: itemId, change: -1 }));
-                  }}
-                  disabled={count <= 0}
-               >
-                  <Minus />
+            {isAuth && (
+               <Button className="w-full rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500">
+                  Edit
                </Button>
-
-               <span className="text-lg font-semibold">{count}</span>
-
-               {/* PLUS BUTTON */}
-               <Button
-                  className="rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
-                  onClick={() => {
-                     dispatch(changeItemCount({ id: itemId, change: 1 }));
-                  }}
-               >
-                  <Plus />
-               </Button>
-            </div>
+            )}
+            {!isAuth && (
+               <div className="flex w-full justify-between items-center">
+                  <Button
+                     className=" rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
+                     onClick={() => {
+                        const newCount = Math.max(count - 1, 0);
+                        setCount(newCount);
+                        dispatch(
+                           cancleProduct({
+                              ...data,
+                              selectedQuantity: newCount,
+                           })
+                        );
+                     }}
+                  >
+                     <Minus />
+                  </Button>
+                  <Button
+                     className="flex-1 mx-1 cursor-pointer"
+                     variant={"secondary"}
+                  >
+                     {count} / Add
+                  </Button>
+                  <Button
+                     className="rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
+                     onClick={() => {
+                        const newCount = Math.min(count + 1, quantity);
+                        setCount(newCount);
+                        dispatch(
+                           addProduct({ ...data, selectedQuantity: newCount })
+                        );
+                     }}
+                  >
+                     <Plus />
+                  </Button>
+               </div>
+            )}
          </CardFooter>
       </Card>
    );
 }
+
+// // 2062005kkzino

@@ -2,8 +2,9 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store.ts";
 
 const initialState = {
-   auth: false,
+   auth: true,
 };
+
 export const authCheck = createSlice({
    name: "auth",
    initialState,
