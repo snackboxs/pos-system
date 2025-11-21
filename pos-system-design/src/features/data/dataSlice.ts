@@ -17,7 +17,7 @@ export const data: Data[] = [
     name: "Spicy Chicken Burger",
     imgurl: "https://i.pinimg.com/736x/cc/3d/a6/cc3da6d3ac815e62bbfae5b9698942aa.jpg",
     price: 15,
-    description: "A fiery chicken burger with fresh lettuce and creamy mayo.",
+    description: "A fiery chicken burger with fresh lettuce and creamy mayo.A fiery chicken burger with fresh lettuce and creamy mayo.A fiery chicken burger with fresh lettuce and creamy mayo.",
     quantity: 4,
   },
   {
@@ -159,7 +159,7 @@ export const data: Data[] = [
   {
     id: 19,
     name: "Buffalo Chicken Wings",
-    imgurl: "https://i.pinimg.com/1200x/57/7a/37/577a37bca0d1c07f385ec78e15b9a929.jpg",
+    imgurl: "https://i.pinimg.com/1200x/95/a0/db/95a0dbe9ea3dd6cb31a1cd2fae11c5af.jpg",
     price: 15,
     description: "Spicy buffalo wings with blue cheese dipping sauce.",
     quantity: 6,
@@ -167,7 +167,7 @@ export const data: Data[] = [
   {
     id: 20,
     name: "Tuna Melt",
-    imgurl: "https://i.pinimg.com/736x/23/86/97/2386976818d8bfa561ca115ed970a0dd.jpg",
+    imgurl: "https://i.pinimg.com/736x/9e/c3/f5/9ec3f5388c82ac92c7c8074df2e9a3f1.jpg",
     price: 12,
     description: "Grilled tuna melt sandwich with herbs and cheese.",
     quantity: 5,

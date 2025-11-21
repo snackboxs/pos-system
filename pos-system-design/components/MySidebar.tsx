@@ -27,6 +27,7 @@ import {
    User2,
    Moon,
    Sun,
+   ChartNoAxesColumn,
 } from "lucide-react";
 
 import { useState } from "react";
@@ -40,8 +41,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const menuItems = [
    { title: "Home", url: "/", icon: Home },
-   { title: "Stock", url: "/admin/dashboard", icon: Inbox },
-   // { title: "Settings", url: "#", icon: Settings },
+   { title: "Analytics Overview", url: "/admin/dashboard", icon: Inbox },
+   { title: "Stock", url: "/stock", icon: ChartNoAxesColumn },
 ];
 
 export default function MySidebar() {

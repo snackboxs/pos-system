@@ -17,6 +17,7 @@ import {
 } from "@/features/itemSelected/itemSelectedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "@/features/auth/authCheck";
+import { useNavigate } from "react-router-dom";
 
 interface MyCardProps {
    data: Data;
@@ -34,6 +35,7 @@ export default function MyCard({ data }: MyCardProps) {
    const dispatch = useDispatch();
    const selectedItems = useSelector(itemSelected);
    const isAuth = useSelector(auth);
+   const navigate = useNavigate();
 
    useEffect(() => {
       if (descriptionRef.current) {
@@ -44,13 +46,13 @@ export default function MyCard({ data }: MyCardProps) {
 
    return (
       <Card
-         className="w-50 relative transition-transform duration-300 ease-in-out h-fit
+         className="w-50 relative transition-transform duration-300 ease-in-out h-fit rounded-md
                   hover:scale-104 hover:brightness-90"
       >
          <CardHeader className="p-1">
             <img
                // style={{ height: 150 }}
-               className="m-auto h-50 bg-sidebar rounded-t-xl"
+               className="m-auto h-50 w-50 object-contain"
                src={imgurl}
                alt="food img"
             />
@@ -83,7 +85,10 @@ export default function MyCard({ data }: MyCardProps) {
          </CardContent>
          <CardFooter className="w-full">
             {isAuth && (
-               <Button className="w-full rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500">
+               <Button
+                  className="w-full rounded-1 cursor-pointer bg-green-100 text-green-foreground hover:bg-green/80 active:bg-green-500"
+                  onClick={() => navigate(`/edititem/${data.id}`)}
+               >
                   Edit
                </Button>
             )}

@@ -15,7 +15,13 @@ import {
    SelectTrigger,
    SelectValue,
 } from "@/components/ui/select";
-import {ChevronRight, ChevronDown, ChevronUp, ChevronLeft} from "lucide-react"
+import {
+   ChevronRight,
+   ChevronDown,
+   ChevronUp,
+   ChevronLeft,
+} from "lucide-react";
+import { useState } from "react";
 
 const invoices = [
    {
@@ -63,6 +69,12 @@ const invoices = [
 ];
 
 export default function AdminDashboard() {
+   const [rowsPerPage, setRowsPerPage] = useState(5);
+   const [page, setPage] = useState(1);
+   const total =50;
+   const from = (page - 1) * rowsPerPage + 1;
+   const to = Math.min(page * rowsPerPage, total);
+
    return (
       <>
          <div className="flex gap-5 mt-5">
@@ -109,20 +121,36 @@ export default function AdminDashboard() {
                </TableFooter>
             </Table>
             <div className="absolute flex items-center bottom-0 w-full bg-white px-2 py-3">
-               <span>Rows per page: </span>
-               <Select>
-                  <SelectTrigger className="w-fit border-none">
-                     <SelectValue placeholder="5" />
-                  </SelectTrigger>
-                  <SelectContent className="min-w-fit">
-                     <SelectItem value="light text-center">10</SelectItem>
-                     <SelectItem value="dark text-center">20</SelectItem>
-                     <SelectItem value="system">30</SelectItem>
-                  </SelectContent>
-               </Select>
-               <span>1-5 of 9</span>
-               <ChevronLeft />
-               <ChevronRight />
+               <div className="flex-1"></div>
+               <div>Rows per page: </div>
+               <div className="mx-3">
+                  <Select
+                     onValueChange={(val) => {
+                        setRowsPerPage(Number(val));
+                        setPage(1);
+                     }}
+                  >
+                     <SelectTrigger className="w-fit border-none">
+                        <SelectValue placeholder="5" />
+                     </SelectTrigger>
+                     <SelectContent className="min-w-fit">
+                        <SelectItem value="5">5</SelectItem>
+                        <SelectItem value="10">10</SelectItem>
+                        <SelectItem value="20">20</SelectItem>
+                        <SelectItem value="30">30</SelectItem>
+                     </SelectContent>
+                  </Select>
+               </div>
+               <span>
+                  {from}-{to} of {total}
+               </span>
+
+               <ChevronLeft
+                  onClick={() => setPage((p) => Math.max(p - 1, 1))}
+               />
+               <ChevronRight
+                  onClick={() => setPage((p) => (to < total ? p + 1 : p))}
+               />
             </div>
          </div>
       </>
